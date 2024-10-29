@@ -9,6 +9,6 @@ namespace gameStore.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public List<Game> Games { get; set; } = [];
+        public List<GamePlatform> GamePlatforms { get; set; } = new List<GamePlatform>();
     }
 }

@@ -19,11 +19,16 @@ namespace gameStore.Data
         {
             base.OnModelCreating(builder);
 
-            // builder.Entity<Game>(x => x.HasKey(p => new { p.AppUserId, p.StockId}));
+            builder.Entity<GamePlatform>(x => x.HasKey(g => new { g.GameId, g.PlatformId}));
 
-            builder.Entity<Game>()
-             .HasMany(e => e.Platforms)
-             .WithMany(u => u.Games);
+            builder.Entity<GamePlatform>()
+            .HasOne(u => u.Game)
+            .WithMany(u => u.GamePlatforms)
+            .HasForeignKey(g => g.GameId);
+            
+            // builder.Entity<Game>()
+            //  .HasMany(e => e.Platforms)
+            //  .WithMany(u => u.Games);
 
 
             builder.Entity<Game>()
