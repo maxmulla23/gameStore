@@ -25,7 +25,7 @@ namespace gameStore.Data
             .HasOne(u => u.Game)
             .WithMany(u => u.GamePlatforms)
             .HasForeignKey(g => g.GameId);
-            
+
             // builder.Entity<Game>()
             //  .HasMany(e => e.Platforms)
             //  .WithMany(u => u.Games);
@@ -35,6 +35,7 @@ namespace gameStore.Data
              .HasMany(e => e.Categories)
              .WithMany(e => e.Games);
 
+            
         }
     }
 }
