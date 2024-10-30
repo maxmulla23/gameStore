@@ -1,8 +1,12 @@
 using gameStore.Data;
+using gameStore.Interface;
 using gameStore.Models;
+using gameStore.Repositories;
+using gameStore.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 var builder = WebApplication.CreateBuilder(args);
@@ -53,7 +57,19 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
+builder.Services.AddTransient<gameDbContext>();
+builder.Services.AddTransient<IGameRepository, GameRepository>();
+builder.Services.AddTransient<IFileService, FileService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+        }
+    );
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -64,14 +80,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors(x => x
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .AllowCredentials()
-    //.WithOrigins("https://localhost:44351)
-    .SetIsOriginAllowed(origin => true)
-);
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
+    RequestPath = "/Resources"
+});
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
