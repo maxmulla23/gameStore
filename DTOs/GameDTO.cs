@@ -23,7 +23,9 @@ namespace gameStore.DTOs
         [Required]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
+        [Required]
+         public string Description { get; set;}
         [Required]
         public string? Picture { get; set; }
         public IFormFile? ImageFile { get; set; }

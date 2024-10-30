@@ -52,5 +52,69 @@ namespace gameStore.Controllers
             return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
         }
       }
+
+      [HttpGet]
+      public async Task<IActionResult> GetGames()
+      {
+        var games = await _gameRepo.GetAllGamesAsync();
+        return Ok(games);
+      }
+      [HttpGet("{id}")]
+      public async Task<IActionResult> GetGames(int id)
+      {
+        var game = await _gameRepo.FindGameByIdAsync(id);
+        if (game == null)
+        {
+          return StatusCode(StatusCodes.Status404NotFound, $"game not found");
+        }
+        return Ok(game);
+      }
+
+      // [HttpPut("{id}")]
+      // public async Task<IActionResult> UpdateGame(int id, [FromForm] UpdateGameDTO gameToUpdate)
+      // {
+      //   try
+      //   {
+      //     if (id != gameToUpdate.Id)
+      //     {
+      //       return StatusCode(StatusCodes.Status400BadRequest, $"id in url and form body does not match.");
+      //     }
+
+      //     var existingGame = await _gameRepo.FindGameByIdAsync(id);
+      //     if (existingGame == null)
+      //     {
+      //       return StatusCode(StatusCodes.Status404NotFound, $"Game not found");
+      //     } 
+      //     string oldImage existingGame.Picture;
+      //       if (gameToUpdate.ImageFile != null)
+      //       {
+      //           if (gameToUpdate.ImageFile?.Length > 1 * 1024 * 1024)
+      //           {
+      //               return StatusCode(StatusCodes.Status400BadRequest, "File size should not exceed 1 MB");
+      //           }
+      //           string[] allowedFileExtentions = [".jpg", ".jpeg", ".png"];
+      //           string createdImageName = await FileService.SaveFileAsync(gameToUpdate.ImageFile, allowedFileExtentions);
+      //           productToUpdate.ProductImage = createdImageName;
+      //       }
+
+      //       // mapping `ProductDTO` to `Product` manually. You can use automapper.
+      //   existingGame.Id = productToUpdate.Id;
+      //   existingGame.ProductName = productToUpdate.ProductName;
+      //   existingGame.ProductImage = productToUpdate.ProductImage;
+
+      //       var updatedProduct = await productRepo.UpdateProductAsynexistingGame);
+
+      //       // if image is updated, then we have to delete old image from directory
+      //       if (productToUpdate.ImageFile != null)
+      //           fileService.DeleteFile(oldImage);
+
+      //       return Ok(updatedProduct);
+      //   }
+      //   catch (System.Exception)
+      //   {
+          
+      //     throw;
+      //   }
+      // }
     }
 }
