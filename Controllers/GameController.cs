@@ -69,52 +69,71 @@ namespace gameStore.Controllers
         }
         return Ok(game);
       }
+      [HttpDelete("{id}")]
+      public async Task<IActionResult> DeleteGame(int id)
+      {
+        try
+        {
+          var existingGame = await _gameRepo.FindGameByIdAsync(id);
+          if(existingGame == null)
+          {
+            return StatusCode(StatusCodes.Status404NotFound, "The game does not exist");
+          }
 
-      // [HttpPut("{id}")]
-      // public async Task<IActionResult> UpdateGame(int id, [FromForm] UpdateGameDTO gameToUpdate)
-      // {
-      //   try
-      //   {
-      //     if (id != gameToUpdate.Id)
-      //     {
-      //       return StatusCode(StatusCodes.Status400BadRequest, $"id in url and form body does not match.");
-      //     }
+          await _gameRepo.DeletGameSync(existingGame);
+          _fileService.DeleteFile(existingGame.Picture);
+          return NoContent();
+        }
+        catch (Exception ex)
+        {
+          _logger.LogError(ex.Message);
+          return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+      }
 
-      //     var existingGame = await _gameRepo.FindGameByIdAsync(id);
-      //     if (existingGame == null)
-      //     {
-      //       return StatusCode(StatusCodes.Status404NotFound, $"Game not found");
-      //     } 
-      //     string oldImage existingGame.Picture;
-      //       if (gameToUpdate.ImageFile != null)
-      //       {
-      //           if (gameToUpdate.ImageFile?.Length > 1 * 1024 * 1024)
-      //           {
-      //               return StatusCode(StatusCodes.Status400BadRequest, "File size should not exceed 1 MB");
-      //           }
-      //           string[] allowedFileExtentions = [".jpg", ".jpeg", ".png"];
-      //           string createdImageName = await FileService.SaveFileAsync(gameToUpdate.ImageFile, allowedFileExtentions);
-      //           productToUpdate.ProductImage = createdImageName;
-      //       }
+      [HttpPut("{id}")]
+      public async Task<IActionResult> UpdateGame(int id, [FromForm] UpdateGameDTO gameToUpdate)
+      {
+        try
+        {
+          if (id != gameToUpdate.Id)
+          {
+            return StatusCode(StatusCodes.Status400BadRequest, $"id in url and form body does not match.");
+          }
 
-      //       // mapping `ProductDTO` to `Product` manually. You can use automapper.
-      //   existingGame.Id = productToUpdate.Id;
-      //   existingGame.ProductName = productToUpdate.ProductName;
-      //   existingGame.ProductImage = productToUpdate.ProductImage;
+          var existingGame = await _gameRepo.FindGameByIdAsync(id);
+          if (existingGame == null)
+          {
+            return StatusCode(StatusCodes.Status404NotFound, $"Game not found");
+          } 
+          string oldImage = existingGame.Picture;
+            if (gameToUpdate.ImageFile != null)
+            {
+                if (gameToUpdate.ImageFile?.Length > 1 * 1024 * 1024)
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, "File size should not exceed 1 MB");
+                }
+                string[] allowedFileExtentions = [".jpg", ".jpeg", ".png"];
+                string createdImageName = await _fileService.SaveFileAsync(gameToUpdate.ImageFile, allowedFileExtentions);
+                gameToUpdate.Picture = createdImageName;
+            }
+            existingGame.Id = gameToUpdate.Id;
+            existingGame.Name = gameToUpdate.Name;
+            existingGame.Picture = gameToUpdate.Picture;
+            existingGame.Description = gameToUpdate.Description;
 
-      //       var updatedProduct = await productRepo.UpdateProductAsynexistingGame);
+            var updatedgame = await _gameRepo.UpdateGameAsync(existingGame);
 
-      //       // if image is updated, then we have to delete old image from directory
-      //       if (productToUpdate.ImageFile != null)
-      //           fileService.DeleteFile(oldImage);
+            if (gameToUpdate.ImageFile != null)
+                 _fileService.DeleteFile(oldImage);
 
-      //       return Ok(updatedProduct);
-      //   }
-      //   catch (System.Exception)
-      //   {
-          
-      //     throw;
-      //   }
-      // }
+            return Ok(updatedgame);
+        }
+        catch (Exception ex)
+        {
+          _logger.LogError(ex.Message);
+          return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+        }
+      }
     }
 }
