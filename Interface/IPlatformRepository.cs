@@ -11,5 +11,7 @@ namespace gameStore.Interface
         Task <Platform> CreatePlatformAsync(Platform platform);
         Task<List<Platform>> GetAllPlatformsAsync();
         Task <Platform?> GetPlatformById(int id);
+        Task <Platform> EditPlatformAsync(Platform platform
+        );
     }
 }

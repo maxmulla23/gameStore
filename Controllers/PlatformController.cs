@@ -69,5 +69,33 @@ namespace gameStore.Controllers
         }
         return Ok(platform);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> EditPlatform(int id, [FromForm] PlatformDTO editplatform)
+        {
+            try
+            {
+            //    if (id != editplatform.Id)
+            //    {
+            //     return StatusCode(StatusCodes.Status400BadRequest, $"id in url and form body do not match");
+            //    } 
+               var existingPlatform = await _platformRepo.GetPlatformById(id);
+               if (existingPlatform == null)
+               {
+                return StatusCode(StatusCodes.Status404NotFound, $"Platform not found");
+               }
+               existingPlatform.Name = editplatform.Name;
+
+               var updatedPlatform = await _platformRepo.EditPlatformAsync(existingPlatform);
+
+               return Ok(updatedPlatform);
+            }
+            catch (Exception ex)
+            {
+                
+               _logger.LogError(ex.Message);
+               return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }
