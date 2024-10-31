@@ -60,6 +60,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddTransient<gameDbContext>();
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 
 builder.Services.AddCors(options =>
 {
