@@ -23,5 +23,10 @@ namespace gameStore.Repositories
             await _context.SaveChangesAsync();
             return platform;
         }
+
+        public async Task<List<Platform>> GetAllPlatformsAsync()
+        {
+            return await _context.Platforms.ToListAsync();
+        }
     }
 }

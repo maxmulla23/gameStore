@@ -28,8 +28,6 @@ namespace gameStore.Controllers
         {
             try
             {
-              
-
                 var platform = new Platform
                 {
                     Name = toCreatePlatform.Name
@@ -42,6 +40,22 @@ namespace gameStore.Controllers
             {
                 _logger.LogError(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPlatform()
+        {
+            try
+            {
+                var platforms = await _platformRepo.GetAllPlatformsAsync();
+                return Ok(platforms);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return StatusCode (StatusCodes.Status500InternalServerError, ex.Message);
+                
             }
         }
     }

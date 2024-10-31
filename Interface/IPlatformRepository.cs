@@ -9,5 +9,6 @@ namespace gameStore.Interface
     public interface IPlatformRepository
     {
         Task <Platform> CreatePlatformAsync(Platform platform);
+        Task<List<Platform>> GetAllPlatformsAsync();
     }
 }
