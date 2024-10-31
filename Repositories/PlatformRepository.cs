@@ -24,6 +24,12 @@ namespace gameStore.Repositories
             return platform;
         }
 
+        public async Task<Platform?> GetPlatformById(int id)
+        {
+            var platform = await _context.Platforms.FindAsync(id);
+            return platform; 
+        }
+
         public async Task<List<Platform>> GetAllPlatformsAsync()
         {
             return await _context.Platforms.ToListAsync();

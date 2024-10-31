@@ -58,5 +58,16 @@ namespace gameStore.Controllers
                 
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPlatform(int id)
+        {
+        var platform = await _platformRepo.GetPlatformById(id);
+        if (platform == null)
+        {
+          return StatusCode(StatusCodes.Status404NotFound, $"platform not found");
+        }
+        return Ok(platform);
+        }
     }
 }
