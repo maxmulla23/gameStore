@@ -97,5 +97,28 @@ namespace gameStore.Controllers
                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePlatform(int id)
+        {
+            try
+            {
+                var existingPlatform = await _platformRepo.GetPlatformById(id);
+          if(existingPlatform == null)
+          {
+            return StatusCode(StatusCodes.Status404NotFound, "The game does not exist");
+          }
+
+          await _platformRepo.DeletePlatformAsync(existingPlatform);
+          
+          return NoContent();
+            }
+            catch (Exception ex)
+            {
+                
+                _logger.LogError(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
     }
 }

@@ -41,5 +41,11 @@ namespace gameStore.Repositories
             await _context.SaveChangesAsync();
             return platform;
         }
+
+        public async Task DeletePlatformAsync(Platform platform)
+        {
+            _context.Platforms.Remove(platform);
+            await _context.SaveChangesAsync();
+        }
     }
 }
