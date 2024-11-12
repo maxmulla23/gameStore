@@ -4,13 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using gameStore.Data;
 using gameStore.Interface;
+using gameStore.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace gameStore.Controllers
 {
     [Route("api/gameplatform")]
     [ApiController]
-    public class GamePlatformController
+    public class GamePlatformController : ControllerBase
     {
         private readonly IGamePlatformRepository _gamePlatformRepo;
         private readonly IGameRepository _gameRepository;
@@ -25,8 +27,36 @@ namespace gameStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGamePlatform()
+        public async Task<IActionResult> AddGamePlatform(int id)
         {
+            try
+            {
+            var game = await _gameRepository.FindGameByIdAsync(id);
+            var platform = await _platformRepo.GetPlatformById(id);
+
+           
+            if (game == null) return BadRequest("game not Found");
+            if (platform == null) return BadRequest("Platform not Found");
+
+            var gamePlatform = new GamePlatform
+            {
+                GameId = game.Id,
+                PlatformId = platform.Id
+            };
+            await _gamePlatformRepo.CreateAsync(gamePlatform);
+            if (gamePlatform == null)
+            {
+                return StatusCode(500, "Could not add");
+            } else {
+                return Created();
+            }
+            
+            }
+            catch (System.Exception)
+            {
+                
+                throw;
+            }
 
         }
 
