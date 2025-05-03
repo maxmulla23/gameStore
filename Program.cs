@@ -21,8 +21,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
-builder.Services.AddDbContext<gameDbContext>(options => {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddDbContext<GameDbContext>(options => {
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -33,7 +33,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequiredLength = 8;
 })
-.AddEntityFrameworkStores<gameDbContext>();
+.AddEntityFrameworkStores<GameDbContext>();
 
 builder.Services.AddAuthentication(options => 
 {
@@ -57,7 +57,7 @@ builder.Services.AddAuthentication(options =>
         )
     };
 });
-builder.Services.AddTransient<gameDbContext>();
+builder.Services.AddTransient<GameDbContext>();
 builder.Services.AddTransient<IGameRepository, GameRepository>();
 builder.Services.AddTransient<IFileService, FileService>();
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();

@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace gameStore.Data
 {
-    public class gameDbContext : IdentityDbContext<AppUser>
+    public class GameDbContext : IdentityDbContext<AppUser>
     {
-        public gameDbContext(DbContextOptions<gameDbContext> options) : base(options){ }
+        public GameDbContext(DbContextOptions<GameDbContext> options) : base(options){ }
         public DbSet<Game> Games{ get; set; }
         public DbSet<Category> Categories { get; set;}
         public DbSet<Platform> Platforms { get; set; }

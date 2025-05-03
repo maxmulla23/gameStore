@@ -17,8 +17,8 @@ namespace gameStore.Controllers
         private readonly IGamePlatformRepository _gamePlatformRepo;
         private readonly IGameRepository _gameRepository;
         private readonly IPlatformRepository _platformRepo;
-        private readonly gameDbContext _context;
-        public GamePlatformController(IGamePlatformRepository gamePlatform, gameDbContext context, IPlatformRepository platformRepo, IGameRepository gameRepository)
+        private readonly GameDbContext _context;
+        public GamePlatformController(IGamePlatformRepository gamePlatform, GameDbContext context, IPlatformRepository platformRepo, IGameRepository gameRepository)
         {
             _gamePlatformRepo = gamePlatform;
             _context = context; 

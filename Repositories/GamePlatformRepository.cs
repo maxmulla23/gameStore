@@ -10,8 +10,8 @@ namespace gameStore.Repositories
 {
     public class GamePlatformRepository : IGamePlatformRepository
     {
-        private readonly gameDbContext _context;
-        public GamePlatformRepository(gameDbContext context)
+        private readonly GameDbContext _context;
+        public GamePlatformRepository(GameDbContext context)
         {
             _context = context;
         }

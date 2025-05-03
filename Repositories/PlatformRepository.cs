@@ -12,8 +12,8 @@ namespace gameStore.Repositories
     public class PlatformRepository : IPlatformRepository
     {
 
-        private readonly gameDbContext _context;
-        public PlatformRepository(gameDbContext context)
+        private readonly GameDbContext _context;
+        public PlatformRepository(GameDbContext context)
         {
             _context = context;
         }

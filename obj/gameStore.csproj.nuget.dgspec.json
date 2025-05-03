@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/maxwell/Desktop/projects/Game/gameStore/gameStore.csproj": {}
+    "/Users/maxmulla/Desktop/projects/gameStore/gameStore.csproj": {}
   },
   "projects": {
-    "/home/maxwell/Desktop/projects/Game/gameStore/gameStore.csproj": {
+    "/Users/maxmulla/Desktop/projects/gameStore/gameStore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/maxwell/Desktop/projects/Game/gameStore/gameStore.csproj",
+        "projectUniqueName": "/Users/maxmulla/Desktop/projects/gameStore/gameStore.csproj",
         "projectName": "gameStore",
-        "projectPath": "/home/maxwell/Desktop/projects/Game/gameStore/gameStore.csproj",
-        "packagesPath": "/home/maxwell/.nuget/packages/",
-        "outputPath": "/home/maxwell/Desktop/projects/Game/gameStore/obj/",
+        "projectPath": "/Users/maxmulla/Desktop/projects/gameStore/gameStore.csproj",
+        "packagesPath": "/Users/maxmulla/.nuget/packages/",
+        "outputPath": "/Users/maxmulla/Desktop/projects/gameStore/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/maxwell/.nuget/NuGet/NuGet.Config"
+          "/Users/maxmulla/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -61,13 +61,13 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -77,15 +77,27 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )"
+              "version": "[9.0.4, )"
             },
             "Microsoft.Extensions.Identity.Core": {
               "target": "Package",
               "version": "[8.0.10, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL.Design": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -111,7 +123,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
