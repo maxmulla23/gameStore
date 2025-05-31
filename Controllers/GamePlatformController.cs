@@ -52,10 +52,10 @@ namespace gameStore.Controllers
             }
             
             }
-            catch (System.Exception)
+            catch (Exception e)
             {
                 
-                throw;
+                return StatusCode(500, e);
             }
 
         }
