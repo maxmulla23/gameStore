@@ -30,7 +30,7 @@ namespace gameStore.Controllers
       {
         try
         {
-            if (gameToAdd.ImageFile?.Length > 1 * 1024 * 1024)
+            if (gameToAdd.ImageFile?.Length > 5 * 1024 * 1024)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, "File size should not exceed 1 MB");
             }

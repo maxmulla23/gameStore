@@ -27,12 +27,12 @@ namespace gameStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddGamePlatform(int id)
+        public async Task<IActionResult> AddGamePlatform(int gameId, int platformId)
         {
             try
             {
-            var game = await _gameRepository.FindGameByIdAsync(id);
-            var platform = await _platformRepo.GetPlatformById(id);
+            var game = await _gameRepository.FindGameByIdAsync(gameId);
+            var platform = await _platformRepo.GetPlatformById(platformId);
 
            
             if (game == null) return BadRequest("game not Found");
